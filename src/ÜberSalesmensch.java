@@ -12,12 +12,6 @@ public class ÜberSalesmensch {
     private int[][] travelPrices;
     private int startingCity;
     private int targetFitness;
-    /*
-    self.target = target                                     # Niska koja se pogadja
-    self.gene_length = len(target)                           # Duzina niske koja se pogadja
-    self.possible_gene_values = possible_gene_values         # Dozvoljene vrednosti koje mogu biti u genu
-    self.num_gene_values = len(possible_gene_values)         # Duzina dozvoljenih vrednosti
-    */
 
     public ÜberSalesmensch(int numberOfCities, SelectionType selectionType, int[][] travelPrices, int startingCity, int targetFitness){
         this.numberOfCities = numberOfCities;
