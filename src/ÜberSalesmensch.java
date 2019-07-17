@@ -105,28 +105,32 @@ public class ÜberSalesmensch {
         }
         return generation;
     }
-
+    
     public List<SalesmanGenome> crossover(List<SalesmanGenome> parents){
+        // housekeeping
         Random random = new Random();
-        int breakPoint = random.nextInt(genomeSize);
+        int breakpoint = random.nextInt(genomeSize);
         List<SalesmanGenome> children = new ArrayList<>();
 
-        List<Integer> parent1Genome = parents.get(0).getGenome();
-        List<Integer> parent2Genome = parents.get(1).getGenome();
+        // copy parental genomes - we copy so we wouldn't modify in case they were
+        // chosen to participate in crossover multiple times
+        List<Integer> parent1Genome = new ArrayList<>(parents.get(0).getGenome());
+        List<Integer> parent2Genome = new ArrayList<>(parents.get(1).getGenome());
 
-        for(int i = breakPoint; i<genomeSize; i++){
+        // creating child 1
+        for(int i = 0; i<breakpoint; i++){
             int newVal;
-            if(i<breakPoint){
-                newVal = parent2Genome.get(i);
-                Collections.swap(parent1Genome,parent1Genome.indexOf(newVal),i);
-            }
-            else{
-                newVal = parent1Genome.get(i);
-                Collections.swap(parent2Genome,parent2Genome.indexOf(newVal),i);
-            }
+            newVal = parent2Genome.get(i);
+            Collections.swap(parent1Genome,parent1Genome.indexOf(newVal),i);
         }
-
         children.add(new SalesmanGenome(parent1Genome,numberOfCities,travelPrices,startingCity));
+        parent1Genome = parents.get(0).getGenome(); // reseting the edited parent
+
+        // creating child 2
+        for(int i = breakpoint; i<genomeSize; i++){
+            int newVal = parent1Genome.get(i);
+            Collections.swap(parent2Genome,parent2Genome.indexOf(newVal),i);
+        }
         children.add(new SalesmanGenome(parent2Genome,numberOfCities,travelPrices,startingCity));
 
         return children;
