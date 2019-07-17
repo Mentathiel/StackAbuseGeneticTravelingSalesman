@@ -87,9 +87,13 @@ public class ÜberSalesmensch {
 
     public SalesmanGenome mutate(SalesmanGenome salesman){
         Random random = new Random();
-        List<Integer> genome = salesman.getGenome();
-        Collections.swap(genome, random.nextInt(genomeSize), random.nextInt(genomeSize));
-        return new SalesmanGenome(genome, numberOfCities, travelPrices, startingCity);
+        float mutate = random.nextFloat();
+        if(mutate<mutationRate) {
+            List<Integer> genome = salesman.getGenome();
+            Collections.swap(genome, random.nextInt(genomeSize), random.nextInt(genomeSize));
+            return new SalesmanGenome(genome, numberOfCities, travelPrices, startingCity);
+        }
+        return salesman;
     }
 
     public List<SalesmanGenome> createGeneration(List<SalesmanGenome> population){
@@ -105,7 +109,7 @@ public class ÜberSalesmensch {
         }
         return generation;
     }
-    
+
     public List<SalesmanGenome> crossover(List<SalesmanGenome> parents){
         // housekeeping
         Random random = new Random();
